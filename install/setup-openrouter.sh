@@ -17,6 +17,9 @@ if [[ -z "$OPENROUTER_KEY" ]]; then
   exit 1
 fi
 
+# Ensure directory exists (script may be called standalone, outside install-pi.sh)
+mkdir -p "$(dirname "$ENV_FILE")"
+
 cat > "$ENV_FILE" << EOF
 export OPENROUTER_API_KEY="$OPENROUTER_KEY"
 EOF
@@ -33,4 +36,6 @@ fi
 source "$ENV_FILE"
 
 echo "Key saved to $ENV_FILE (chmod 600)"
-echo "Added to ~/.bashrc for future sessions."
+if grep -q "openrouter-env.sh" "$HOME/.bashrc" 2>/dev/null; then
+  echo "Added to ~/.bashrc for future sessions."
+fi

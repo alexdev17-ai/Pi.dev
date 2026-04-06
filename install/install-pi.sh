@@ -55,9 +55,7 @@ mkdir -p "$HOME/.pi/agent/"{prompts,skills,extensions}
 echo "~/.pi/agent/ directories created."
 
 # --- Step 5: Copy config ---
-cp "$PROJECT_DIR/config/settings.json" "$HOME/.pi/agent/settings.json"
-cp "$PROJECT_DIR/config/AGENTS.md" "$HOME/.pi/agent/AGENTS.md"
-cp "$PROJECT_DIR/config/models.json" "$HOME/.pi/agent/models.json"
+cp "$PROJECT_DIR/config/"* "$HOME/.pi/agent/"
 echo "Config files copied to ~/.pi/agent/"
 
 # --- Step 6: Symlink playwright-safe skill ---

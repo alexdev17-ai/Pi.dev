@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # verify.sh — runs 7 checks. Prints PASS/FAIL for each.
-set -euo pipefail
+# Note: intentionally no 'set -e' — we must run all checks even if one fails.
+set -uo pipefail
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
@@ -22,11 +23,12 @@ check() {
 }
 
 # 1. nvm loaded + Node >= 20
-NODE_VER=$(node --version 2>/dev/null | cut -d. -f1 | tr -d 'v' || echo "0")
+NODE_VERSION_FULL=$(node --version 2>/dev/null || echo "none")
+NODE_VER=$(echo "$NODE_VERSION_FULL" | cut -d. -f1 | tr -d 'v' || echo "0")
 if (( NODE_VER >= 20 )); then
-  check "nvm + Node >= 20 (got $(node --version))" "ok"
+  check "nvm + Node >= 20 (got $NODE_VERSION_FULL)" "ok"
 else
-  check "nvm + Node >= 20" "Node not found or too old (got: $NODE_VER)"
+  check "nvm + Node >= 20" "Node not found or too old (got: $NODE_VERSION_FULL)"
 fi
 
 # 2. pi in PATH
@@ -37,7 +39,7 @@ else
 fi
 
 # 3. Docker responsive
-if docker info &>/dev/null 2>&1; then
+if docker info &>/dev/null; then
   check "Docker daemon responsive" "ok"
 else
   check "Docker daemon" "not running — start Docker Desktop"
@@ -61,7 +63,7 @@ if [[ -n "${OPENROUTER_API_KEY:-}" ]]; then
     check "OpenRouter key valid" "HTTP $HTTP_CODE — check your key at https://openrouter.ai/keys"
   fi
 else
-  check "OpenRouter key valid" "skipped — key not set"
+  echo "SKIP: OpenRouter key valid — key not set, skipping HTTP check"
 fi
 
 # 6. Config files in ~/.pi/agent/
