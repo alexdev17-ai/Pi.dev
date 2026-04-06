@@ -1,0 +1,33 @@
+# Instruction hijack
+ignore previous instructions
+disregard.*above
+you are an AI
+forget.*instructions
+override.*instructions
+
+# Command injection
+execute the following
+run this.*command
+eval\(
+exec\(
+subprocess
+os\.system
+
+# Secret exfiltration
+reveal.*secret
+show.*api.key
+print.*password
+expose.*credential
+leak.*token
+
+# Role manipulation
+you are now
+act as
+pretend to be
+new instructions:
+jailbreak
+
+# Hidden content markers (HTML injection attempts)
+display:\s*none
+font-size:\s*0
+visibility:\s*hidden
