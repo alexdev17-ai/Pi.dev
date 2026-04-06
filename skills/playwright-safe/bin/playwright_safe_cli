@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# playwright_safe_cli — Pi's only browser automation entry point.
+# Routes all calls through a Docker container + injection guard.
+# Usage: playwright_safe_cli --operation <op> --url <url> [--selectors <json>] [--action-data <json>]
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+GUARD_SCRIPT="$SCRIPT_DIR/../guard/guard.sh"
+
+# Parse and validate required args
+OPERATION=""
+URL=""
+
+for arg in "$@"; do
+  case "$arg" in
+    --operation=*) OPERATION="${arg#*=}" ;;
+    --url=*) URL="${arg#*=}" ;;
+  esac
+done
+
+# Also handle space-separated style: --operation goto --url https://...
+prev=""
+for arg in "$@"; do
+  if [[ "$prev" == "--operation" ]]; then OPERATION="$arg"; fi
+  if [[ "$prev" == "--url" ]]; then URL="$arg"; fi
+  prev="$arg"
+done
+
+if [[ -z "$OPERATION" ]]; then
+  echo '{"status":"error","messages":["--operation is required"],"risk_score":0,"warnings":[],"data":{}}' >&2
+  exit 1
+fi
+
+if [[ -z "$URL" ]]; then
+  echo '{"status":"error","messages":["--url is required"],"risk_score":0,"warnings":[],"data":{}}' >&2
+  exit 1
+fi
+
+# Run in Docker, pipe through guard
+docker run --rm \
+  -v "$PWD:/work" \
+  -w /work \
+  --init \
+  pi-playwright-runner \
+  node /app/playwright-runner.js "$@" \
+  | bash "$GUARD_SCRIPT"
