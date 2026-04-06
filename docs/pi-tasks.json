@@ -1,0 +1,239 @@
+{
+  "description": "Pi.dev enhancement task list. Ask Pi to work through these one by one. Each task is self-contained.",
+  "instructions": "Say to Pi: 'Read docs/pi-tasks.json and complete task N. When done, mark it completed and tell me what you did.'",
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Install oh-my-pi wrapper",
+      "status": "pending",
+      "priority": "high",
+      "description": "Install the oh-my-pi community wrapper which provides pre-built extension bundles, alternative runtimes (Bun), and pre-configured language server integrations.",
+      "steps": [
+        "Check if oh-my-pi is available at https://github.com/badlogic/pi-mono or npm",
+        "Install via npm or their install script",
+        "Verify it doesn't conflict with existing ~/.pi/agent/ setup",
+        "Document what it added"
+      ],
+      "notes": "May provide automated install of many other extensions. Do this before installing individual extensions."
+    },
+    {
+      "id": 2,
+      "title": "Install pure-focus extension",
+      "status": "pending",
+      "priority": "medium",
+      "description": "Strips away the native footer bar and status line entirely for a distraction-free terminal environment.",
+      "source": "https://github.com/disler/pi-vs-claude-code — extensions/pure-focus.ts",
+      "steps": [
+        "Find or create the pure-focus.ts extension",
+        "Save to ~/.pi/agent/extensions/pure-focus.ts",
+        "Test by launching: pi --extension ~/.pi/agent/extensions/pure-focus.ts",
+        "Add a launch alias or justfile recipe"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Install minimal extension",
+      "status": "pending",
+      "priority": "medium",
+      "description": "Replaces the standard UI with a compact footer showing only model name and a 10-block context usage meter.",
+      "source": "https://github.com/disler/pi-vs-claude-code — extensions/minimal.ts",
+      "steps": [
+        "Find or create the minimal.ts extension",
+        "Save to ~/.pi/agent/extensions/minimal.ts",
+        "Test by launching: pi --extension ~/.pi/agent/extensions/minimal.ts"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Install tool-counter extension",
+      "status": "pending",
+      "priority": "medium",
+      "description": "Adds a two-line telemetry footer: model + context meter + token/cost stats on line 1, CWD + git branch + tool call counts on line 2.",
+      "source": "https://github.com/disler/pi-vs-claude-code — extensions/tool-counter.ts",
+      "steps": [
+        "Find or create the tool-counter.ts extension",
+        "Save to ~/.pi/agent/extensions/tool-counter.ts",
+        "Test by launching: pi --extension ~/.pi/agent/extensions/tool-counter.ts"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Install purpose-gate extension",
+      "status": "pending",
+      "priority": "low",
+      "description": "Forces explicit session intent declaration before Pi responds. Renders a persistent purpose widget and blocks all LLM prompts until intent is set.",
+      "source": "https://github.com/disler/pi-vs-claude-code — extensions/purpose-gate.ts",
+      "steps": [
+        "Find or create the purpose-gate.ts extension",
+        "Save to ~/.pi/agent/extensions/purpose-gate.ts",
+        "Test by launching: pi --extension ~/.pi/agent/extensions/purpose-gate.ts"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Install cross-agent extension",
+      "status": "pending",
+      "priority": "high",
+      "description": "Recursively scans for .claude/, .gemini/, .codex/ directories and imports their commands, skills, and instructions into Pi. Useful for projects that also have Claude Code or Gemini CLI configs.",
+      "source": "https://github.com/disler/pi-vs-claude-code — extensions/cross-agent.ts",
+      "steps": [
+        "Find or create the cross-agent.ts extension",
+        "Save to ~/.pi/agent/extensions/cross-agent.ts",
+        "Test in a project directory that has a CLAUDE.md or .claude/ dir",
+        "Verify Claude Code skills/commands are available in Pi"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Install till-done extension",
+      "status": "pending",
+      "priority": "high",
+      "description": "Injects a strict state-machine into the agent loop that prevents Pi from declaring a task complete until it passes verification. Transforms Pi from a conversational assistant into a relentless execution engine for long autonomous tasks.",
+      "source": "https://github.com/disler/pi-vs-claude-code — extensions/till-done.ts",
+      "steps": [
+        "Find or create the till-done.ts extension",
+        "Understand the state machine: task declared → implement → verify → pass or retry",
+        "Save to ~/.pi/agent/extensions/till-done.ts",
+        "Test on a small multi-step coding task"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Set up Justfile orchestration",
+      "status": "pending",
+      "priority": "medium",
+      "description": "Create a justfile at the project root that orchestrates Pi launches with specific extension combinations. Handles dotenv loading and spawns isolated terminal windows per session type.",
+      "steps": [
+        "Install just: https://github.com/casey/just — on WSL2: cargo install just OR apt install just",
+        "Create /mnt/c/Users/HAAK/pi.dev/justfile",
+        "Add recipes: open <extension>, open-team <ext1> <ext2>, open-ralph, open-focused",
+        "Use set dotenv-load so .env credentials are injected before Pi starts",
+        "Test: just open pure-focus"
+      ],
+      "example": "just open tool-counter\njust open-team pure-focus tool-counter\njust open-ralph"
+    },
+    {
+      "id": 9,
+      "title": "Set up pi-teams multi-agent extension",
+      "status": "pending",
+      "priority": "low",
+      "description": "Installs the pi-teams extension which enables Claude Code-style autonomous sub-agents. Define teams in teams.yaml with planner, security, reviewer roles each using different models.",
+      "source": "Search npm for pi-teams or https://github.com/badlogic/pi-mono",
+      "steps": [
+        "Find pi-teams package or extension",
+        "Create teams.yaml with at least one team definition",
+        "Test with a simple 2-agent team (planner + reviewer)",
+        "Document the team configuration in this project"
+      ]
+    },
+    {
+      "id": 10,
+      "title": "Set up Pi Ralph loop",
+      "status": "pending",
+      "priority": "high",
+      "description": "Create the file infrastructure for running autonomous Ralph-style loops inside Pi. Enables long-running autonomous coding sessions with compaction notes, progress tracking, and fail logs.",
+      "steps": [
+        "Create .pi/ralph/ directory",
+        "Create .pi/ralph/progress.md template",
+        "Create .pi/ralph/fail_log.md template",
+        "Add Ralph Loop Protocol section to AGENTS.md (already partially done)",
+        "Create a run-ralph.sh launcher script that calls pi with --max-turns 80",
+        "Test on a small PLAN.md with 3 tasks"
+      ],
+      "loop_command": "pi --provider openrouter --model anthropic/claude-sonnet-4.6 --thinking medium --max-turns 80 -p 'Run the Ralph loop in PLAN.md' 2>&1 | tee .pi/ralph/session-$(date +%Y%m%d-%H%M%S).log"
+    },
+    {
+      "id": 11,
+      "title": "Add OS-level sandboxing for WSL2",
+      "status": "pending",
+      "priority": "medium",
+      "description": "Add bubblewrap-based sandbox to confine Pi's file system and network access. Prevents runaway bash commands from touching ~/.ssh, .env files, or making unauthorized outbound requests.",
+      "steps": [
+        "Install bubblewrap in WSL2: sudo apt-get install bubblewrap",
+        "Check if @anthropic-ai/sandbox-runtime is available for Pi",
+        "Create .pi/sandbox.json with filesystem restrictions and network allowlist",
+        "Test that Pi can still write to project dir but not to ~/.ssh/",
+        "Document the sandbox config"
+      ],
+      "sandbox_config": {
+        "network": {
+          "allowed": ["openrouter.ai", "github.com", "registry.npmjs.org", "api.anthropic.com"]
+        },
+        "filesystem": {
+          "deny": ["~/.ssh", "~/.pi/agent/openrouter-env.sh", "~/.bashrc"]
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Add agent-chain extension for pipeline workflows",
+      "status": "pending",
+      "priority": "low",
+      "description": "Install agent-chain which pipes the output of one Pi agent directly into the input of the next. Enables automated data refinement pipelines (e.g. research → summarize → format → publish).",
+      "source": "Search npm or https://github.com/badlogic/pi-mono for agent-chain",
+      "steps": [
+        "Find agent-chain package",
+        "Define a simple 2-step pipeline (e.g. fetch + summarize)",
+        "Test the pipeline",
+        "Add a justfile recipe for common chains"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Configure mid-session model switching favorites",
+      "status": "pending",
+      "priority": "medium",
+      "description": "Set up a curated 'scoped' model rotation list so Ctrl+P cycles through a short list of favorites rather than all models. Optimizes the fast-switch workflow: Haiku for exploration, Sonnet for implementation, Opus for architecture.",
+      "steps": [
+        "Find where Pi's model rotation list is configured (likely settings.json or models.json)",
+        "Define a scoped rotation: [haiku, sonnet, opus]",
+        "Test Ctrl+P cycles correctly",
+        "Document the shortcut workflow"
+      ]
+    },
+    {
+      "id": 14,
+      "title": "Create project-specific AGENTS.md for pi.dev itself",
+      "status": "pending",
+      "priority": "medium",
+      "description": "Add a root AGENTS.md to the pi.dev project directory so Pi knows the project structure, how to run tests, and what rules apply when working on pi.dev itself.",
+      "steps": [
+        "Create /mnt/c/Users/HAAK/pi.dev/AGENTS.md",
+        "Include: project overview, test commands (bash tests/test-guard.sh, bash tests/test-runner.sh), install scripts location, Docker image name, key files",
+        "Commit to git"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Upgrade playwright-safe guard to LLM critic (phase 2)",
+      "status": "pending",
+      "priority": "low",
+      "description": "Implement the LLM critic hook that was stubbed in guard.sh. Uses a cheap model (Haiku) to evaluate whether page content contains agent-directed instructions vs normal content, as a second layer after regex.",
+      "steps": [
+        "Read the LLM CRITIC HOOK comment in skills/playwright-safe/guard/guard.sh",
+        "Decide on the critic model (haiku via OpenRouter is cheapest)",
+        "Implement the critic call: pipe suspicious content to the model with a YES/NO prompt",
+        "Add critic risk_score escalation logic",
+        "Update tests/test-guard.sh with critic-specific test cases",
+        "Update the spec in docs/superpowers/specs/"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Add more test coverage for playwright-safe",
+      "status": "pending",
+      "priority": "medium",
+      "description": "The current tests cover goto and guard basics. Add tests for all 6 operations, boundary conditions, and malformed input.",
+      "missing_tests": [
+        "guard: string at exactly 200-char boundary (validates scoring branch)",
+        "guard: malformed/invalid JSON input",
+        "guard: empty input {}",
+        "runner: click operation",
+        "runner: extract_text with selectors",
+        "runner: extract_links",
+        "runner: screenshot (verify file created in screenshots/)",
+        "cli: end-to-end with injection payload (full pipeline test)"
+      ]
+    }
+  ]
+}
