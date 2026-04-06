@@ -1,3 +1,7 @@
+---
+description: Safe Docker-backed browser automation with injection guard. Use for any web browsing, scraping, or form interaction task.
+---
+
 # playwright-safe
 
 Safe browser automation for Pi. Runs Playwright inside Docker and filters output through an injection guard before returning results.
