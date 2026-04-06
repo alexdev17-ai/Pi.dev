@@ -37,10 +37,14 @@ if [[ -z "$URL" ]]; then
 fi
 
 # Run in Docker, pipe through guard
-docker run --rm \
+DOCKER_OUTPUT=$(docker run --rm \
   -v "$PWD:/work" \
   -w /work \
   --init \
   pi-playwright-runner \
-  node /app/playwright-runner.js "$@" \
-  | bash "$GUARD_SCRIPT"
+  node /app/playwright-runner.js "$@" 2>&1) || {
+  echo '{"status":"error","messages":["Docker run failed. Ensure Docker Desktop is running and the pi-playwright-runner image is built."],"risk_score":0,"warnings":[],"data":{}}'
+  exit 1
+}
+
+echo "$DOCKER_OUTPUT" | bash "$GUARD_SCRIPT"

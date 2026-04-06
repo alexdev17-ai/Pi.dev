@@ -1,6 +1,7 @@
 'use strict';
 
 const { chromium } = require('playwright');
+const { URL: URLParser } = require('url');
 const args = require('minimist')(process.argv.slice(2));
 
 const OPERATION = args.operation;
@@ -15,6 +16,18 @@ function respond(status, messages, data) {
 async function main() {
   if (!OPERATION || !URL) {
     respond('error', ['--operation and --url are required'], {});
+    process.exit(1);
+  }
+
+  // Whitelist: only http and https schemes allowed
+  try {
+    const parsed = new URLParser(URL);
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+      respond('error', [`URL scheme '${parsed.protocol}' is not allowed. Only http: and https: are permitted.`], {});
+      process.exit(1);
+    }
+  } catch (e) {
+    respond('error', [`Invalid URL: ${e.message}`], {});
     process.exit(1);
   }
 
