@@ -1,0 +1,34 @@
+{
+  "models": [
+    {
+      "id": "anthropic/claude-sonnet-4-6",
+      "provider": "openrouter",
+      "label": "Claude Sonnet 4.6 (default)",
+      "contextWindow": 200000
+    },
+    {
+      "id": "anthropic/claude-opus-4-6",
+      "provider": "openrouter",
+      "label": "Claude Opus 4.6 (complex tasks)",
+      "contextWindow": 200000
+    },
+    {
+      "id": "anthropic/claude-haiku-4-5",
+      "provider": "openrouter",
+      "label": "Claude Haiku 4.5 (fast/cheap)",
+      "contextWindow": 200000
+    },
+    {
+      "id": "openai/gpt-4o",
+      "provider": "openrouter",
+      "label": "GPT-4o (non-Anthropic alternative)",
+      "contextWindow": 128000
+    },
+    {
+      "id": "google/gemini-2.0-flash-001",
+      "provider": "openrouter",
+      "label": "Gemini 2.0 Flash (bulk tasks)",
+      "contextWindow": 1000000
+    }
+  ]
+}
