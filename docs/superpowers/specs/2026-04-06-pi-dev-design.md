@@ -197,9 +197,10 @@ Returns structured JSON to stdout:
 2. Extract all string-valued fields.
 3. Match each against `patterns.txt` regexes.
 4. Compute cumulative `risk_score`:
-   - Match in short field (< 200 chars): +0.3 per match.
-   - Match in long field (>= 200 chars): +0.15 per match.
+   - Match in short field (< 200 chars): +0.80 per match.
+   - Match in long field (>= 200 chars): +0.40 per match.
    - Capped at 1.0.
+   - Rationale: a single unambiguous injection pattern in a short string (e.g. "ignore previous instructions") is sufficient evidence to block. The +0.80 value ensures one clear match = blocked without needing accumulation. Soft mentions in long-form text (+0.40) require two matches to block.
 5. If `risk_score > 0.7`: set `status` to `"blocked"`, strip `text` field, replace with `"[content blocked — risk_score: X.X]"`.
 6. Always append `risk_score` and `warnings` array to output.
 
