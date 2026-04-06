@@ -47,4 +47,6 @@ DOCKER_OUTPUT=$(docker run --rm \
   exit 1
 }
 
-echo "$DOCKER_OUTPUT" | bash "$GUARD_SCRIPT"
+echo "$DOCKER_OUTPUT" | bash "$GUARD_SCRIPT" | \
+  jq --arg pwd "$PWD" \
+    'if .data.screenshot_path != null then .data.screenshot_path = (.data.screenshot_path | gsub("^/work/"; ($pwd + "/"))) else . end'
