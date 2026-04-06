@@ -6,11 +6,11 @@
       "api": "openai-completions",
       "models": [
         {
-          "id": "anthropic/claude-sonnet-4-6",
+          "id": "anthropic/claude-sonnet-4.6",
           "name": "Claude Sonnet 4.6 via OpenRouter"
         },
         {
-          "id": "anthropic/claude-opus-4-6",
+          "id": "anthropic/claude-opus-4",
           "name": "Claude Opus 4.6 via OpenRouter"
         },
         {

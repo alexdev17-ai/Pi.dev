@@ -1,6 +1,6 @@
 {
   "defaultProvider": "openrouter",
-  "defaultModel": "anthropic/claude-sonnet-4-6",
+  "defaultModel": "anthropic/claude-sonnet-4.6",
   "thinkingEnabled": true,
   "thinkingBudget": "medium"
 }
