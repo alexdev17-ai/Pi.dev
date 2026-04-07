@@ -7,23 +7,23 @@
       "models": [
         {
           "id": "anthropic/claude-sonnet-4.6",
-          "name": "Claude Sonnet 4.6 via OpenRouter"
-        },
-        {
-          "id": "anthropic/claude-opus-4",
-          "name": "Claude Opus 4.6 via OpenRouter"
+          "name": "Sonnet 4.6 (implement)",
+          "contextWindow": 200000
         },
         {
           "id": "anthropic/claude-haiku-4-5",
-          "name": "Claude Haiku 4.5 via OpenRouter"
+          "name": "Haiku 4.5 (fast/explore)",
+          "contextWindow": 200000
         },
         {
-          "id": "openai/gpt-4o",
-          "name": "GPT-4o via OpenRouter"
+          "id": "anthropic/claude-opus-4.6",
+          "name": "Opus 4.6 (architecture)",
+          "contextWindow": 200000
         },
         {
-          "id": "google/gemini-2.0-flash-001",
-          "name": "Gemini 2.0 Flash via OpenRouter"
+          "id": "minimax/minimax-m2.7",
+          "name": "MiniMax M2.7 (alternative)",
+          "contextWindow": 200000
         }
       ]
     }

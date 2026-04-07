@@ -26,10 +26,10 @@
   - Source: npm or `badlogic/pi-mono`
   - Status: pending
 
-- [ ] **Task 13 — Configure Ctrl+P model favorites**
-  - Short rotation: Haiku (fast/explore) → Sonnet 4.6 (implement) → Opus 4.6 (architecture) → MiniMax M2.7 (alternative)
-  - Currently 6 models in models.json — limit to curated shortlist
-  - Status: pending
+- [x] **Task 13 — Configure Ctrl+P model favorites** ✅
+  - Short rotation: Sonnet 4.6 (implement) → Haiku 4.5 (fast/explore) → Opus 4.6 (architecture) → MiniMax M2.7 (alternative)
+  - Trimmed from 6 to 4 models; freed ctrl+p from app.session.togglePath conflict
+  - Status: done — committed to ~/.pi/agent/ and pi.dev/config/
 
 - [ ] **Task 4 — tool-counter extension**
   - Two-line footer: model + context meter + token/cost on line 1; CWD + git branch + tool call counts on line 2

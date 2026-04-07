@@ -2,5 +2,6 @@
   "defaultProvider": "openrouter",
   "defaultModel": "anthropic/claude-sonnet-4.6",
   "thinkingEnabled": true,
-  "thinkingBudget": "medium"
+  "thinkingBudget": "medium",
+  "lastChangelogVersion": "0.65.2"
 }
